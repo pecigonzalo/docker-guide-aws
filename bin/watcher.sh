@@ -17,11 +17,11 @@ fi
 if [ "$NODE_TYPE" == "manager" ]; then
     # manager
     NODE_ID=$(docker node inspect self | jq -r '.[].ID')
-    SWARM_ID=$(docker info | grep ClusterID | cut -f2 -d: | sed -e 's/^[ \t]*//')
+    # SWARM_ID=$(docker info | grep ClusterID | cut -f2 -d: | sed -e 's/^[ \t]*//')
 else
     # worker
     NODE_ID=$(docker info | grep NodeID | cut -f2 -d: | sed -e 's/^[ \t]*//')
-    SWARM_ID='n/a' #TODO:FIX add this for workers.
+    # SWARM_ID='n/a' #TODO:FIX add this for workers.
 fi
 # echo "NODE: $NODE_ID"
 # echo "NODE_TYPE=$NODE_TYPE"

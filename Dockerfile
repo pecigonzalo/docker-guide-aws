@@ -15,9 +15,11 @@ RUN apt-get update && \
 
 WORKDIR /
 
+RUN mkdir -p /usr/docker /var/log/docker/
+
 COPY ./crontabs/root /usr/docker/crontab.txt
 
-RUN /bin/sh -c /usr/bin/crontab /usr/docker/crontab.txt
+RUN /usr/bin/crontab /usr/docker/crontab.txt
 
 COPY ./bin/* /usr/bin/
 COPY entry.sh /

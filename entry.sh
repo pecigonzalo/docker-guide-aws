@@ -11,11 +11,13 @@ echo "Initialize logging for guide daemons"
 # setup symlink to output logs from relevant scripts to container logs
 
 # Create the log file to be able to run tail
+set +e
 ln -s /proc/1/fd/1 /var/log/cron/refresh.log
 ln -s /proc/1/fd/1 /var/log/cron/watcher.log
 ln -s /proc/1/fd/1 /var/log/cron/cleanup.log
 ln -s /proc/1/fd/1 /var/log/cron/vacuum.log
 ln -s /proc/1/fd/1 /var/log/cron/cron.log
+set -e
 # start cron
 # /usr/sbin/crond -f -l 9 -L /var/log/cron.log
 cron -f

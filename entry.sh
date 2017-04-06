@@ -9,9 +9,13 @@ set -o pipefail # capture fail exit codes in piped commands
 
 echo "Initialize logging for guide daemons"
 # setup symlink to output logs from relevant scripts to container logs
-ln -s /proc/1/fd/1 /var/log/docker/refresh.log
-ln -s /proc/1/fd/1 /var/log/docker/watcher.log
-ln -s /proc/1/fd/1 /var/log/docker/cleanup.log
 
+# Create the log file to be able to run tail
+ln -s /proc/1/fd/1 /var/log/cron/refresh.log
+ln -s /proc/1/fd/1 /var/log/cron/watcher.log
+ln -s /proc/1/fd/1 /var/log/cron/cleanup.log
+ln -s /proc/1/fd/1 /var/log/cron/vacuum.log
+ln -s /proc/1/fd/1 /var/log/cron/cron.log
 # start cron
-/usr/sbin/crond -f -l 9 -L /var/log/cron.log
+# /usr/sbin/crond -f -l 9 -L /var/log/cron.log
+cron -f

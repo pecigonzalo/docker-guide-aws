@@ -160,7 +160,7 @@ if [ "$NODE_TYPE" == "manager" ]; then
     else
         echo "This is the last manager in the swarm."
     fi
-    echo "Give time for the demotation to take place"
+    echo "Give time for the demotion to take place"
     # buoy -event="node:demote" -swarm_id="s" -channel="$CHANNEL" -node_id="$NODE_ID"
     sleep 30
 
@@ -176,6 +176,6 @@ aws sqs send-message --region "$REGION" --queue-url "$CLEANUP_QUEUE" --message-b
 
 echo "Lets AWS know we can shut down now."
 # let autoscaler know it can continue.
-aws autoscaling complete-lifecycle-action --region "$REGION" --lifecycle-action-token "$TOKEN"--lifecycle-hook-name "$HOOK" --auto-scaling-group-name "$ASG" --lifecycle-action-result CONTINUE
+aws autoscaling complete-lifecycle-action --region "$REGION" --lifecycle-action-token "$TOKEN" --lifecycle-hook-name "$HOOK" --auto-scaling-group-name "$ASG" --lifecycle-action-result CONTINUE
 echo "Complete"
 date

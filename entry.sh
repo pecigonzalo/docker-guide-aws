@@ -4,12 +4,12 @@ set -e          # exit on command errors
 set -o nounset  # abort on unbound variable
 set -o pipefail # capture fail exit codes in piped commands
 
-# set system wide env variables, so they are available to ssh connections
-/usr/bin/env >/etc/environment
-
 echo "Initialize logging for guide daemons"
-# setup symlink to output logs from relevant scripts to container logs
+printenv | cat - /usr/docker/crontab.txt >temp && mv temp /etc/crontab
 
+#/usr/bin/crontab /usr/docker/crontab.txt
+
+# setup symlink to output logs from relevant scripts to container logs
 # Create the log file to be able to run tail
 set +e
 ln -s /proc/1/fd/1 /var/log/cron/refresh.log

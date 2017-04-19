@@ -1,7 +1,17 @@
-# crontab
-*/1 * * * * /usr/bin/watcher.sh >> /var/log/cron/watcher.log
-*/5 * * * * /usr/bin/cleanup.sh >> /var/log/cron/cleanup.log
-# 24 * * * * /usr/bin/buoy.sh >> /var/log/cron/buoy.log
-42 1 * * * /usr/bin/vacuum.sh >> /var/log/cron/vacuum.log
-*/4 * * * * /usr/bin/refresh.sh >> /var/log/cron/refresh.log
-* * * * *   echo "Hello $(date)" >> /var/log/cron/cron.log 2>&1
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+*/1 * * * * root  /usr/bin/watcher.sh >> /var/log/cron/watcher.log
+*/5 * * * * root  /usr/bin/cleanup.sh >> /var/log/cron/cleanup.log
+42  1 * * * root  /usr/bin/vacuum.sh >> /var/log/cron/vacuum.log
+*/4 * * * * root  /usr/bin/refresh.sh >> /var/log/cron/refresh.log
+*   * * * * root  echo "Hello $(date)" >> /var/log/cron/cron.log
+# 24  * * * * /usr/bin/buoy.sh >> /var/log/cron/buoy.log
+#

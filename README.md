@@ -1,4 +1,4 @@
-# Docker Swarm for AWS ELB Autoupdater
+# Docker Swarm for AWS Guide
 
 This container *guides* the cluster instances through its lifecycle performing maintenance tasks
 
@@ -35,7 +35,6 @@ Handles AutoScalingGroup Instance shutdown by reading events for the node on a S
 ##### Example
 ```
 docker run -d \
-  --log-driver=json-file \
   --name=guide-aws \
   --restart=always \
   -e DYNAMODB_TABLE=$DYNAMODB_TABLE \

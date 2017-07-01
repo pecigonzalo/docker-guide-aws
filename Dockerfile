@@ -1,20 +1,22 @@
 FROM debian:stretch-slim
 MAINTAINER Gonzalo Peci <pecigonzalo@outlook.com>
-ENV DEBIAN_FRONTEND noninteractive
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-  apt-get install --no-install-recommends -y \
-    jq \
-    libltdl-dev \
-    python-setuptools \
-    python-pip \
-    cron \
-    wget && \
-  rm -rf /var/lib/apt/lists/* && \
-  apt-get clean
+    apt-get install --no-install-recommends -y \
+        jq \
+        libltdl-dev \
+        python-setuptools \
+        python-wheel \
+        python-pip \
+        cron \
+        wget && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
 
 RUN pip install -U pip && \
-  pip install awscli
+    pip install --no-cache-dir awscli
 
 WORKDIR /
 

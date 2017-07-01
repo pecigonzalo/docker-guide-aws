@@ -1,4 +1,4 @@
-# Docker Swarm for AWS ELB Autoupdater
+# Docker Swarm for AWS Guide
 
 This container *guides* the cluster instances through its lifecycle performing maintenance tasks
 

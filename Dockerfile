@@ -1,15 +1,19 @@
-FROM debian:8
+FROM debian:stretch-slim
 MAINTAINER Gonzalo Peci <pecigonzalo@outlook.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-  apt-get install -y \
+  apt-get install --no-install-recommends -y \
     jq \
     libltdl-dev \
+    python-setuptools \
     python-pip \
     cron \
     wget && \
-  pip install -U pip && \
+  rm -rf /var/lib/apt/lists/* && \
+  apt-get clean
+
+RUN pip install -U pip && \
   pip install awscli
 
 WORKDIR /

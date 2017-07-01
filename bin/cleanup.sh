@@ -16,9 +16,7 @@ if [ -e /tmp/.shutdown-init ]; then
     exit 0
 fi
 
-# find any nodes that are marked as down, and remove from the
-# DOWN_LIST=$(docker node inspect $(docker node ls -q) | jq -r '.[] | select(.Status.State == "down") | .ID')
-
+# find any nodes that are marked as down, and remove from the swarm
 MESSAGES=$(aws sqs receive-message --region "$REGION" --queue-url "$CLEANUP_QUEUE" --max-number-of-messages 10 --wait-time-seconds 10 --visibility-timeout 5)
 
 COUNT=$(echo "$MESSAGES" | jq -r '.Messages | length')
@@ -36,8 +34,6 @@ for ((i = 0; i < COUNT; i++)); do
         echo "We were able to remove node from swarm, delete message from queue"
         aws sqs delete-message --region "$REGION" --queue-url "$CLEANUP_QUEUE" --receipt-handle "$RECEIPT"
         echo "message deleted"
-        # SWARM_ID=$(docker info | grep ClusterID | cut -f2 -d: | sed -e 's/^[ \t]*//')
-        # buoy -event="node:remove" -swarm_id="$SWARM_ID" -channel="$CHANNEL" -node_id="$BODY"
     else
         echo "We were not able to remove node from swarm, don't delete. RESULT=$RESULT"
     fi

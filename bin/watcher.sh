@@ -17,14 +17,12 @@ fi
 if [ "$NODE_TYPE" == "manager" ]; then
     # manager
     NODE_ID=$(docker node inspect self | jq -r '.[].ID')
-    # SWARM_ID=$(docker info | grep ClusterID | cut -f2 -d: | sed -e 's/^[ \t]*//')
 else
     # worker
     NODE_ID=$(docker info | grep NodeID | cut -f2 -d: | sed -e 's/^[ \t]*//')
-    # SWARM_ID='n/a' #TODO:FIX add this for workers.
 fi
-# echo "NODE: $NODE_ID"
-# echo "NODE_TYPE=$NODE_TYPE"
+echo "NODE: $NODE_ID"
+echo "NODE_TYPE=$NODE_TYPE"
 
 # script runs via cron every minute, so all of them will start at the same time. Add a random
 # delay so they don't step on each other when pulling items from the queue.
@@ -161,7 +159,6 @@ if [ "$NODE_TYPE" == "manager" ]; then
         echo "This is the last manager in the swarm."
     fi
     echo "Give time for the demotion to take place"
-    # buoy -event="node:demote" -swarm_id="s" -channel="$CHANNEL" -node_id="$NODE_ID"
     sleep 30
 
 fi

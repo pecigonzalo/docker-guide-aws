@@ -5,6 +5,10 @@ if [ "$NODE_TYPE" == "worker" ]; then
     exit 0
 fi
 
+# script runs via cron every 5 minutes, so all of them will start at the same time.
+# Add a random delay so they don't step on each
+sleep $(((RANDOM % 10) + 1))
+
 IS_LEADER=$(docker node inspect self -f '{{ .ManagerStatus.Leader }}')
 
 if [[ "$IS_LEADER" == "true" ]]; then

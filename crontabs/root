@@ -8,10 +8,11 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user  command
+
 */1 * * * * root  /usr/bin/watcher.sh >> /var/log/cron/watcher.log
 */5 * * * * root  /usr/bin/cleanup.sh >> /var/log/cron/cleanup.log
-42  1 * * * root  /usr/bin/vacuum.sh >> /var/log/cron/vacuum.log
 */4 * * * * root  /usr/bin/refresh.sh >> /var/log/cron/refresh.log
 *   * * * * root  echo "Hello $(date)" >> /var/log/cron/cron.log
-# 24  * * * * /usr/bin/buoy.sh >> /var/log/cron/buoy.log
+@daily      root  /usr/bin/vacuum.sh >> /var/log/cron/vacuum.log
+
 #
